@@ -42,7 +42,9 @@
         "cred": "GUEST",                # 用户身份，GUEST - 访客，USER - 用户，ADMIN - 管理员
         "uid": "xxxx",                  # 用户id
         "nickname": "xxxx",             # 用户昵称
-        "avatar": "xxxx"                # 用户头像
+        "avatar": "xxxx",               # 用户头像
+        "create_time": "2020-05-31 12:58:42",
+        "update_time": "2020-05-31 12:59:20",
     }
 }
 ```
@@ -92,7 +94,9 @@ status|string|选填|列出指定状态的文档，未填时列出所有状态�
             "source": "xxxx",       # 文档源
             "progress": 10,         # 文档生成进度
             "status": "SUCCESS",
-            "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar"}
+            "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar"},
+            "create_time": "2020-05-31 12:58:42",
+            "update_time": "2020-05-31 12:59:20",
         },
         {
             "doc_id": "xxxx",
@@ -101,7 +105,9 @@ status|string|选填|列出指定状态的文档，未填时列出所有状态�
             "url":"xxxx",
             "progress": 10,         # 文档生成进度
             "status": "SUCCESS",
-            "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"}
+            "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"},
+            "create_time": "2020-05-31 12:58:42",
+            "update_time": "2020-05-31 12:59:20",
         }
     ]
 }
@@ -170,7 +176,9 @@ doc_id|string|必填|文档id
         "source": "xxxxx",
         "progress": 10,         # 文档生成进度
         "status": "SUCCESS",
-        "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"}
+        "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"},
+        "create_time": "2020-05-31 12:58:42",
+        "update_time": "2020-05-31 12:59:20",
     }
 }
 ```
