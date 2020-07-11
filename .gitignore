@@ -1,0 +1,15 @@
+venv/
+*.pyc
+*.log
+*.pid
+.vscode
+.DS_Store
+__pycache__
+node_modules
+log
+static/dist
+.idea
+.idea/
+server_image/src/logs/
+server_image/src/statistics/
+logs/
