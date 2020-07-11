@@ -8,7 +8,7 @@ from flask import Flask
 
 from webapp import hook, db
 from webapp.share import encrypt_helper, kodo, statistic_helper
-from webapp.module import debug, user, doc
+from webapp.module import debug, user, doc, storage
 
 
 def create_time_rotating_log_handler(logger_file,
@@ -83,6 +83,7 @@ def create_app(configure):
     app.register_blueprint(debug.blue_print, url_prefix='/webapi/debug')
     app.register_blueprint(user.blue_print, url_prefix='/webapi/user')
     app.register_blueprint(doc.blue_print, url_prefix='/webapi/doc')
+    app.register_blueprint(storage.blue_print, url_prefix='/webapi/storage')
 
     # 注册请求hook
     hook.register(app)

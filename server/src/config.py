@@ -37,7 +37,7 @@ class BaseConfig(object):
     QINIU_PUBLIC_STORE_REGION = 'https://upload-z1.qiniup.com'
     QINIU_ACCESS_KEY = 'sRd2-QgwgZnPgZyY1E6oS0QxtFWjGLNJwss9D2Op'
     QINIU_SECRET_KEY = 'r4ZiD533tHlAzL9icthxkzjo1OD9PavzFQTLT7an'
-    QINIU_PUBLIC_BUCKET = 'saya'
+    QINIU_PUBLIC_BUCKET = 'saya-storage'
 
     # GitHub 登录配置
     GITHUB_CLIENT_ID = "c0073c9a09d97651fc25"

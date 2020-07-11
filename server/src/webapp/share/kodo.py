@@ -244,6 +244,7 @@ class KodoTools:
         policy = {
             "scope": scope,
             "deadline": int(time.time()) + expire,
+            "isPrefixalScope": 1,
         }
         policy_json = json.dumps(policy, separators=(',', ':'))
         encoded_policy = urlsafe_base64_encode(policy_json)
