@@ -101,7 +101,7 @@ status|string|选填|列出指定状态的文档，未填时列出所有状态�
             "url":"xxxx",
             "progress": 10,         # 文档生成进度
             "status": "SUCCESS",
-            "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar"}
+            "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"}
         }
     ]
 }
@@ -170,7 +170,7 @@ doc_id|string|必填|文档id
         "source": "xxxxx",
         "progress": 10,         # 文档生成进度
         "status": "SUCCESS",
-        "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar"}
+        "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"}
     }
 }
 ```
