@@ -35,14 +35,14 @@
 ```
 * 接口参数: 无
 * 接口返回: 
-```json
+```sh
 {
     "success":true,
     "data":{
-        "cred": "GUEST",                // 用户身份，GUEST - 访客，USER - 用户，ADMIN - 管理员
-        "uid": "xxxx",                  // 用户id
-        "nickname": "xxxx",             // 用户昵称
-        "avatar": "xxxx"                // 用户头像
+        "cred": "GUEST",                # 用户身份，GUEST - 访客，USER - 用户，ADMIN - 管理员
+        "uid": "xxxx",                  # 用户id
+        "nickname": "xxxx",             # 用户昵称
+        "avatar": "xxxx"                # 用户头像
     }
 }
 ```
@@ -80,7 +80,7 @@ status|string|选填|列出指定状态的文档，未填时列出所有状态�
 
 
 * 接口返回: 
-```json
+```sh
 {
     "success":true,
     "data": [
@@ -89,8 +89,8 @@ status|string|选填|列出指定状态的文档，未填时列出所有状态�
             "title": "xxxx",
             "desc": "xxxx",
             "url":"xxxx",
-            "source": "xxxx",       // 文档源
-            "progress": 10,         // 文档生成进度
+            "source": "xxxx",       # 文档源
+            "progress": 10,         # 文档生成进度
             "status": "SUCCESS",
             "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar"}
         },
@@ -99,7 +99,7 @@ status|string|选填|列出指定状态的文档，未填时列出所有状态�
             "title": "xxxx",
             "desc": "xxxx",
             "url":"xxxx",
-            "progress": 10,         // 文档生成进度
+            "progress": 10,         # 文档生成进度
             "status": "SUCCESS",
             "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar"}
         }
@@ -159,7 +159,7 @@ desc|string|选填|文档描述
 doc_id|string|必填|文档id
 
 * 接口返回: 
-```json
+```sh
 {
     "success":true,
     "data": {
@@ -168,7 +168,7 @@ doc_id|string|必填|文档id
         "desc": "xxxx",
         "url":"xxxx",
         "source": "xxxxx",
-        "progress": 10,         // 文档生成进度
+        "progress": 10,         # 文档生成进度
         "status": "SUCCESS",
         "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar"}
     }
