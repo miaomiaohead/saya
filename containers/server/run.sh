@@ -30,8 +30,8 @@ if [ ! -d ${statistics_path} ]; then
 fi
 
 docker run -d -p ${port}:${runc_port} \
-    -v ${log_path}:/usr/python_server_src/logs \
-    -v ${statistics_path}:/usr/python_server_src/statistics \
+    -v ${log_path}:/usr/logs \
+    -v ${statistics_path}:/usr/statistics \
     -v /etc/localtime:/etc/localtime:ro \
     --name ${name} \
     --env SERVER_ENV=${env} \
