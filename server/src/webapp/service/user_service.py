@@ -56,7 +56,7 @@ def get_github_token(code, state):
 
 
 def query_user_meta_by_github_id(github_id):
-    user_db.query_user_meta_by_github_id(github_id)
+    return user_db.query_user_meta_by_github_id(github_id)
 
 
 def insert_user_from_github(github_user):

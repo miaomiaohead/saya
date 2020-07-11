@@ -4,7 +4,7 @@ FROM python:3.6 AS build
 COPY requirements.txt /usr/requirements.txt
 
 RUN pip install -r /usr/requirements.txt \
-    -i https://pypi.tuna.tsinghua.edu.cn/simple \
+    -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com \
     --prefix=/usr/install
 
 # construct runtime

@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS `users` (
     `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`uid`),
-    INDEX `github_idx` (`github_id`)
+    UNIQUE INDEX `github_idx` (`github_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
