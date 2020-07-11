@@ -107,6 +107,7 @@ status|string|选填|列出指定状态的文档，未填时列出所有状态�
         "url": "",
         "progress": 0,
         "status": "WAIT",
+        "failed_message": "xxx",
         "create_time": "2020-07-11 20:52:20",
         "update_time": "2020-07-11 20:52:20"
       }
@@ -144,7 +145,7 @@ doc_id|string|必填|文档id
 参数名|类型|是否必填|描述
 -|-|-|-
 title|string|必填|文档标题
-source|string|必填|文档源
+source|string|必填|文档源, 目前仅支持 zip 压缩包。
 desc|string|选填|文档描述
 
 
@@ -178,6 +179,7 @@ doc_id|string|必填|文档id
         "source": "xxxxx",
         "progress": 10,         # 文档生成进度
         "status": "SUCCESS",
+        "failed_message": "xxx",
         "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"},
         "create_time": "2020-05-31 12:58:42",
         "update_time": "2020-05-31 12:59:20",

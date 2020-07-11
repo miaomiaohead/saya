@@ -58,6 +58,14 @@ class AppMissingDoc(AppException):
         super().__init__()
 
 
+class AppNotSupportSource(AppException):
+    """source 不支持
+    """
+
+    def __init__(self):
+        super().__init__()
+
+
 error_code_mapper = {
     AppException: (1000, "系统异常"),
     AppInvalidRequest: (1001, "无效请求"),
@@ -65,4 +73,5 @@ error_code_mapper = {
     AppMissingUser: (1003, "没有对应的用户"),
     AppGitHubRequestError: (1004, "请求 Github 失败"),
     AppMissingDoc: (1005, "没有对应的文档"),
+    AppNotSupportSource: (1006, "source 不支持"),
 }

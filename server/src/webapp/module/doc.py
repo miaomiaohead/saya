@@ -43,6 +43,9 @@ def doc_post(title, source, desc):
     if not user_service.query_user_meta(creator):
         raise exception.AppMissingUser()
 
+    if not source.endswith(".zip"):
+        raise exception.AppNotSupportSource()
+
     doc_id = doc_service.generate_doc_id()
     doc_service.post_doc(doc_id, title, source, desc, creator)
     return result.Result.simple(obj={"doc_id": doc_id})
