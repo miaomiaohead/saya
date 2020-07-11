@@ -24,4 +24,4 @@ def query_user_meta_by_github_id(github_id, *, cursor):
 def replace_user(user, *, cursor):
     sql, args = ReplaceBuilder("users", kvs=user).build()
     cursor.execute(sql, args)
-    return cursor.fetchone()
+    return cursor.rowcount

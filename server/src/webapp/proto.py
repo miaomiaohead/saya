@@ -19,3 +19,12 @@ class EnumUserCred(BaseProto):
     ADMIN = "ADMIN"
     USER = "USER"
     GUEST = "GUEST"
+
+
+class EnumDocStatus(BaseProto):
+    """文档状态
+    """
+    WAIT = "WAIT"
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+

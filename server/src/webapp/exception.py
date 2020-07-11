@@ -50,10 +50,19 @@ class AppGitHubRequestError(AppException):
         super().__init__()
 
 
+class AppMissingDoc(AppException):
+    """没有对应的文档
+    """
+
+    def __init__(self):
+        super().__init__()
+
+
 error_code_mapper = {
     AppException: (1000, "系统异常"),
     AppInvalidRequest: (1001, "无效请求"),
     AppAccessDeny: (1002, "拒绝访问"),
     AppMissingUser: (1003, "没有对应的用户"),
     AppGitHubRequestError: (1004, "请求 Github 失败"),
+    AppMissingDoc: (1005, "没有对应的文档"),
 }

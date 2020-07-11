@@ -4,10 +4,21 @@ from flask import Blueprint, redirect, g
 
 from webapp import result, exception, proto
 from webapp.share import request_helper, session_helper
-from webapp.service import  user_service
+from webapp.service import user_service
 
 
 blue_print = Blueprint("user", __name__)
+
+
+@blue_print.route("/login_as", methods=["get", "post"])
+@request_helper.param(
+    request_helper.Argv("uid"),)
+def login_as(uid):
+    user_meta = user_service.query_user_meta(uid)
+    if not user_meta:
+        raise exception.AppMissingUser()
+    session_helper.save_uid(user_meta["uid"])
+    return result.Result.simple()
 
 
 @blue_print.route("/github_login", methods=["get", "post"])

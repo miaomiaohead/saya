@@ -1,6 +1,10 @@
 # -*- coding:utf-8 -*-
 
+import os
+
 from flask import session, jsonify, Blueprint, Response, current_app as app
+
+
 blue_print = Blueprint("debug", __name__)
 
 
@@ -22,6 +26,7 @@ def health():
         sessions[k] = v
     resp = {
         "env": app.server_env,
-        "sessions": sessions
+        "sessions": sessions,
+        "cwd": os.getcwd(),
     }
     return jsonify(resp)

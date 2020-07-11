@@ -77,39 +77,41 @@ login_scene|string|必填|登录场景标识，前端随机生成的字符串。
 
 参数名|类型|是否必填|描述
 -|-|-|-
-user|string|选填|列出指定用户的文档，未填时列出所有用户文档。
+creator|string|选填|列出指定用户创建的文档，未填时列出所有用户文档。
 status|string|选填|列出指定状态的文档，未填时列出所有状态文档。WAIT - 文档生成中, SUCCESS - 文档生成完成，FAILED - 文档生成失败
 
 
 * 接口返回: 
 ```sh
 {
-    "success":true,
-    "data": [
-        {
-            "doc_id": "xxxx",
-            "title": "xxxx",
-            "desc": "xxxx",
-            "url":"xxxx",
-            "source": "xxxx",       # 文档源
-            "progress": 10,         # 文档生成进度
-            "status": "SUCCESS",
-            "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar"},
-            "create_time": "2020-05-31 12:58:42",
-            "update_time": "2020-05-31 12:59:20",
+  "success": true,
+  "data": {
+    "start": 0,
+    "limit": 20,
+    "total": 1,
+    "items": [
+      {
+        "doc_id": "3e2e675c-ab14-4635-adc5-2cf1b2f29852",
+        "creator": {
+          "uid": "aa0abdd5-4d5a-460d-b3ca-8a70e27469d7",
+          "github_id": "13912637",
+          "cred": "USER",
+          "nickname": "lsj9383",
+          "avatar": "https://avatars2.githubusercontent.com/u/13912637?v=4",
+          "create_time": "2020-07-11 17:56:17",
+          "update_time": "2020-07-11 17:56:17"
         },
-        {
-            "doc_id": "xxxx",
-            "title": "xxxx",
-            "desc": "xxxx",
-            "url":"xxxx",
-            "progress": 10,         # 文档生成进度
-            "status": "SUCCESS",
-            "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"},
-            "create_time": "2020-05-31 12:58:42",
-            "update_time": "2020-05-31 12:59:20",
-        }
+        "title": "test",
+        "desc": "testdesc",
+        "source": "1.zip",
+        "url": "",
+        "progress": 0,
+        "status": "WAIT",
+        "create_time": "2020-07-11 20:52:20",
+        "update_time": "2020-07-11 20:52:20"
+      }
     ]
+  }
 }
 ```
 
@@ -135,7 +137,7 @@ doc_id|string|必填|文档id
 ### 2.3 上传文档
 
 ```sh
-(GET) http(https)://host/webapi/doc/apply
+(GET) http(https)://host/webapi/doc/post
 ```
 * 接口参数: 
 
