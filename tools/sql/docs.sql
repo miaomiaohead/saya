@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS `docs` (
     `url` VARCHAR(128) NOT NULL COMMENT '文档url',
     `progress` tinyint(4) NOT NULL COMMENT '进度, x%',
     `status` VARCHAR(32) NOT NULL COMMENT '文档状态: WAIT/SUCCESS/FAILED',
-    `failed_message` TEXT NOT NULL COMMENT '文档生成失败的原因',
     `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`doc_id`)

@@ -12,6 +12,7 @@
         - [2.3 上传文档](#23-上传文档)
         - [2.4 查询指定文档](#24-查询指定文档)
     - [三、storage](#三storage)
+        - [3.1 获得存储令牌](#31-获得存储令牌)
 
 <!-- /TOC -->
 
@@ -107,7 +108,6 @@ status|string|选填|列出指定状态的文档，未填时列出所有状态�
         "url": "",
         "progress": 0,
         "status": "WAIT",
-        "failed_message": "xxx",
         "create_time": "2020-07-11 20:52:20",
         "update_time": "2020-07-11 20:52:20"
       }
@@ -179,7 +179,6 @@ doc_id|string|必填|文档id
         "source": "xxxxx",
         "progress": 10,         # 文档生成进度
         "status": "SUCCESS",
-        "failed_message": "xxx",
         "creator": {"uid": "xxxxx", "nickname": "xxxxx", "avatar": "xxxxx"},
         "create_time": "2020-05-31 12:58:42",
         "update_time": "2020-05-31 12:59:20",
@@ -188,6 +187,8 @@ doc_id|string|必填|文档id
 ```
 
 ## 三、storage
+
+### 3.1 获得存储令牌
 ```sh
 (GET) http(https)://host/webapi/storage/token
 ```

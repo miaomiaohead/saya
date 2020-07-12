@@ -23,6 +23,8 @@ def login_as(uid):
 
 @blue_print.route("/github_login", methods=["get", "post"])
 def github_login():
+    """使用 GitHub OAuth2.0 登录
+    """
     params = ["client_id=%s" % g.watcher.config("GITHUB_CLIENT_ID"),
               "redirect_uri=%s" % g.watcher.config("GITHUB_REDIRECT_URI"),
               "login"]
@@ -37,6 +39,12 @@ def github_login():
     request_helper.Argv("code"),
     request_helper.Argv("state", default=None),)
 def github_login_callback(code, state):
+    """
+    GitHub OAuth2.0 Authorize Redirect
+
+    :param code: GitHub OAuth2.0 Authorize Code
+    :param state: GitHub OAuth2.0 state
+    """
     github_user = user_service.query_github_user(code, state)
     if not github_user:
         raise exception.AppGitHubRequestError()
@@ -51,6 +59,9 @@ def github_login_callback(code, state):
 @blue_print.route("/", methods=["get", "post"])
 @blue_print.route("/profile", methods=["get", "post"])
 def profile():
+    """
+    Query user profile
+    """
     user_meta = user_service.query_user_meta(session_helper.get_uid())
     if not user_meta:
         user_meta = {

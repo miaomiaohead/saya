@@ -28,7 +28,7 @@ def urlsafe_base64_encode(data):
 
 
 class KodoClient(object):
-    """七牛云客户端攻击
+    """七牛云客户端
     """
     __list_host__ = "rsf.qbox.me"
     __delete_host__ = "rs.qiniu.com"
