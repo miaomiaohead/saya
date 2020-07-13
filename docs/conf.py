@@ -32,7 +32,9 @@ author = 'arthur'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'recommonmark',
+    'sphinx.ext.viewcode',
+    'recommonmark',                 # support markdown
+    'sphinx_markdown_tables',       # support markdown table
 ]
 
 # Add any paths that contain templates here, relative to this directory.

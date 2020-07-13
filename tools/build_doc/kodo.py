@@ -28,7 +28,7 @@ def urlsafe_base64_encode(data):
 
 
 class KodoClient(object):
-    """七牛云客户端攻击
+    """七牛云客户端
     """
     __list_host__ = "rsf.qbox.me"
     __delete_host__ = "rs.qiniu.com"
@@ -62,9 +62,10 @@ class KodoClient(object):
         param = {"token": token, }
         if path is not None:
             param["key"] = path
+        import os
         with open(local, "rb") as local_file:
             files = {'file': local_file}
-            r = requests.post(self._tool._store_region, data=param, files=files)
+            r = requests.post(self._tool.store_region(), data=param, files=files, timeout=60)
             r.encoding = "utf-8"
             success = r.status_code == 200
             message = ""
@@ -77,12 +78,12 @@ class KodoClient(object):
             local : 本地文件(已经用rb打开)
             path : kodo文件名
         """
-        token = self._tool.kodo_upload_token(path)
+        token = self._tool.upload_token(path)
         param = {"token": token, }
         if path is not None:
             param["key"] = path
         files = {'file': local}
-        r = requests.post(self._tool._store_region, data=param, files=files)
+        r = requests.post(self._tool.store_region(), data=param, files=files, timeout=60)
         r.encoding = "utf-8"
         success = r.status_code == 200
         message = ""
@@ -98,7 +99,7 @@ class KodoClient(object):
         temp = None
         try:
             temp = tempfile.TemporaryFile()
-            r = requests.get(remote)
+            r = requests.get(remote, timeout=60)
             temp.write(r.content)
             temp.seek(0, 0)
             return self.upload_rb(temp, path)
@@ -110,7 +111,7 @@ class KodoClient(object):
         """迭代一次文件列表
             marker:迭代偏移
         """
-        url = "http://%s/list?bucket=%s" % (self.__list_host__, self._tool._bucket)
+        url = "http://%s/list?bucket=%s" % (self.__list_host__, self._tool.bucket())
         if marker:
             url += "&marker=" + marker
         access_token = self._tool.manager_token(url)
@@ -119,7 +120,7 @@ class KodoClient(object):
             "Content-Type": "application/x-www-form-urlencoded",
             "Authorization": "QBox " + access_token,
         }
-        r = requests.get(url, headers=headers)
+        r = requests.get(url, headers=headers, timeout=60)
         r.encoding = "utf-8"
         if r.status_code != 200:
             return None, r.text
@@ -153,7 +154,7 @@ class KodoClient(object):
             "Content-Type": "application/x-www-form-urlencoded",
             "Authorization": "QBox " + access_token,
         }
-        r = requests.post(url, headers=headers)
+        r = requests.post(url, headers=headers, timeout=60)
         r.encoding = "utf-8"
         success = r.status_code == 200
         message = ""
@@ -175,7 +176,7 @@ class KodoClient(object):
             "Content-Type": "application/x-www-form-urlencoded",
             "Authorization": "QBox " + access_token,
         }
-        r = requests.post(url, data=body, headers=headers)
+        r = requests.post(url, data=body, headers=headers, timeout=60)
         r.encoding = "utf-8"
         success = r.status_code == 200
         message = ""
@@ -206,6 +207,12 @@ class KodoTools:
         secret_key = _b(self._secret_key)
         hashed = hmac.new(secret_key, data, hashlib.sha1)
         return urlsafe_base64_encode(hashed.digest())
+
+    def store_region(self):
+        return self._store_region
+
+    def bucket(self):
+        return self._bucket
 
     def encode_entry(self, path):
         entry = '%s:%s' % (self._bucket, path)

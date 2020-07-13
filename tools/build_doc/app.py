@@ -4,11 +4,12 @@ import os
 from concurrent import futures
 
 import requests
-import kodo
-import db
-import unpack
+import kodo, db, tools
+
 
 HANDLE_LIMIT = 1000
+
+SAYA_CDN_HOST = "http://cdn.saya.signalping.com"
 
 QINIU_PUBLIC_STORE_REGION = "https://upload-z1.qiniup.com"
 QINIU_ACCESS_KEY = "sRd2-QgwgZnPgZyY1E6oS0QxtFWjGLNJwss9D2Op"
@@ -22,29 +23,12 @@ DB_NAME = "saya_db"
 DB_USER = "root"
 DB_PAWD = "root@saya"
 
-def force_remove_dir(path):
-    if not path:
-        return
-    try:
-        os.removedirs(path)
-    except:
-        pass
-
-
-def force_remove_path(path):
-    if not path:
-        return
-    try:
-        os.remove(path)
-    except:
-        pass
-
 
 def download_from_source(doc, timeout):
     local_path = None
     try:
         doc_id = doc["doc_id"]
-        creator = doc["source"]
+        creator = doc["creator"]
         source = doc["source"]
 
         # 发请求
@@ -59,7 +43,7 @@ def download_from_source(doc, timeout):
 
         return True, local_path
     except Exception as e:
-        force_remove_path(local_path)
+        tools.force_remove_path(local_path)
         return False, e
 
 
@@ -84,17 +68,54 @@ class App(object):
             (network_executor.submit(download_from_source, doc, 60), doc)
              for doc in docs)
 
-        # 主线程对文档进行解压并
+        # 主线程对文档进行解压
+        # 解压目录为 temp/${doc_id}/doc/
+        print(os.getcwd())
         for fut in futures.as_completed(future_to_doc):
             success, data = fut.result()
-            print("==================================")
-            print(success, data)
-            if not success:
-                continue
             doc = future_to_doc[fut]
             source = doc["source"]
-            unpack.unzip(data)
+            doc_id = doc["doc_id"]
+            creator = doc["creator"]
+            package_path = data
 
+            print("==================================")
+            print(success, " : ", data)
+            if not success:
+                # 下载失败
+                db_client.update_doc_progress(doc_id, 100, "FAILED")
+                continue
+            db_client.update_doc_progress(doc_id, 10, "WAIT")
+
+            # 解压并成功
+            tools.unzip(package_path)
+            db_client.update_doc_progress(doc_id, 30, "WAIT")
+
+            # 寻找 sphinx 的 source 目录
+            sphinx_sourcedir = tools.find_sphinx_sourcedir(os.path.dirname(package_path))
+            if not sphinx_sourcedir:
+                # 无法找到 sourcedir
+                db_client.update_doc_progress(doc_id, 100, "FAILED")
+                continue
+            db_client.update_doc_progress(doc_id, 40, "WAIT")
+
+            # 文档生成
+            sphinx_builddir = "%s/_build" % sphinx_sourcedir
+            build_message = tools.sphinx_build(sphinx_sourcedir, sphinx_builddir)
+            db_client.update_doc_progress(doc_id, 60, "WAIT")
+
+            # 多线程上传文件
+            param = {"creator": creator, "doc_id": doc_id}
+            remotedir = "user/{creator}/{doc_id}".format(**param)
+            entry = tools.dir_upload_kodo(sphinx_builddir, remotedir, kodo_client)
+            entry_url = "%s/%s" % (SAYA_CDN_HOST, entry)
+            print("doc entry_url: %s" % entry_url)
+
+            # 删除本地目录
+            print(os.getcwd())
+            tools.force_remove_dir("./temp")
+            db_client.update_doc_progress(doc_id, 100, "SUCCESS")
+            db_client.update_entry_url(doc_id, entry_url)
 
 def main():
     App().run()

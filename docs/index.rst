@@ -15,7 +15,6 @@ Welcome to saya's documentation!
    interface
    api
 
-
 Indices and tables
 ==================
 
