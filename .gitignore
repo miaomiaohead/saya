@@ -14,4 +14,5 @@ static/dist
 server_image/src/logs/
 server_image/src/statistics/
 logs/
+statistics/
 docs/_build/

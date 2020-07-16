@@ -2,7 +2,7 @@
 
 import os
 
-from flask import session, jsonify, Blueprint, Response, current_app as app
+from flask import session, jsonify, Blueprint, request, current_app as app
 
 
 blue_print = Blueprint("debug", __name__)
@@ -28,5 +28,29 @@ def health():
         "env": app.server_env,
         "sessions": sessions,
         "cwd": os.getcwd(),
+    }
+    return jsonify(resp)
+
+
+@blue_print.route("/echo", methods=["get", "post"])
+def echo():
+    sessions = {}
+    for k, v in session.items():
+        sessions[k] = v
+
+    headers = {}
+    for k, v in request.headers:
+        headers[k] = v
+
+    body_bytes = request.get_data()
+    body = str(body_bytes)
+
+    url = request.url
+
+    resp = {
+        "sessions": sessions,
+        "headers": headers,
+        "body": body,
+        "url": url,
     }
     return jsonify(resp)

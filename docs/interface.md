@@ -80,6 +80,8 @@ login_scene|string|必填|登录场景标识，前端随机生成的字符串。
 -|-|-|-
 creator|string|选填|列出指定用户创建的文档，未填时列出所有用户文档。
 status|string|选填|列出指定状态的文档，未填时列出所有状态文档。WAIT - 文档生成中, SUCCESS - 文档生成完成，FAILED - 文档生成失败
+start|int|选填|数据获取偏移，默认为0
+limit|int|选填|数据获取的最大个数，默认为20
 
 
 * 接口返回: 

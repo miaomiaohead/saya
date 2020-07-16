@@ -1,8 +1,6 @@
 API
 ====
 
-.. user module
-
 USER MODULE
 ------------
 
@@ -14,7 +12,14 @@ USER MODULE
 
 .. autofunction:: profile
 
-.. kodo class
+
+DOC MODULE
+------------
+
+.. automodule:: webapp.module.doc
+
+.. autofunction:: doc_list
+
 
 KODO
 -----

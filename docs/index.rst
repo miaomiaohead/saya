@@ -14,6 +14,7 @@ Welcome to saya's documentation!
    deploy
    interface
    api
+   model
 
 Indices and tables
 ==================

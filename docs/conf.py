@@ -33,6 +33,7 @@ author = 'arthur'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'sphinx.ext.duration',
     'recommonmark',                 # support markdown
     'sphinx_markdown_tables',       # support markdown table
 ]

@@ -2,10 +2,16 @@
 
 
 class Page(object):
+    """
+    """
     def __init__(self, start, limit, total, items):
+        #: 数据偏移
         self.start = start
+        #: 数据个数限制
         self.limit = limit
+        #: 总共的数据量
         self.total = total
+        #: 数据元素的列表
         self.items = items
 
     @staticmethod
@@ -27,3 +33,8 @@ class Base(object):
             table_name = table_name + "."
         keys = ["%s%s" % (table_name, key) for key in self.__dict__.keys()]
         return ",".join(keys)
+
+
+class Document(Base):
+    def __init__(self):
+        pass

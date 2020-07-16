@@ -17,6 +17,20 @@ blue_print = Blueprint("doc", __name__)
     request_helper.Argv("start", type_=int, default=0),
     request_helper.Argv("limit", type_=int, default=20),)
 def doc_list(creator, status, start, limit):
+    """列出文档
+
+    .. code-block::
+
+        (GET) http://saya.signalping.com/webapi/doc/list
+
+    :param creator: 列出指定用户创建的文档，未填时列出所有用户文档。
+    :type creator: str or None
+    :param status: 列出指定状态的文档，未填时列出所有状态文档。
+    :type status: str or None
+    :param int start: 数据获取偏移，默认为0。
+    :param int limit: 数据获取的最大个数，默认为20。
+    :return: :class:`Page <webapp.data_model.Page>` (:class:`Document <webapp.data_model.Document>`)，。
+    """
     page = doc_service.list_doc(creator, status, start, limit)
     return result.Result.simple(obj=page)
 
