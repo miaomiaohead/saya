@@ -105,5 +105,5 @@ if __name__ == "__main__":
                                   QINIU_PUBLIC_BUCKET)
 
     dir_upload_kodo("../../docs/_build/",
-                    "user/aa0abdd5-4d5a-460d-b3ca-8a70e27469d7/test-doc",
+                    "saya/docs",
                     kodo_client)

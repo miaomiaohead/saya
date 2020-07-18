@@ -24,7 +24,12 @@
 ```sh
 (GET) http(https)://host/webapi/user/github_login
 ```
-* 接口参数: 无
+* 接口参数: 
+
+参数名|类型|是否必填|描述
+-|-|-|-
+redirect_uri|string|选填|登录完成后的重定向uri
+
 * 接口返回: 重定向至 GitHub OAuth 登录授权页
 
 ### 1.2 用户详情

