@@ -5,7 +5,6 @@ import asyncio
 
 @asyncio.coroutine
 def handle_per_second(app):
-    # print("handle")
     pass
 
 
