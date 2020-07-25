@@ -2,7 +2,31 @@
 
 import copy
 
-from webapp.protocol import base, debug, storage, user
+from webapp.protocol import base, debug, storage, user, doc
+
+
+class Page(object):
+    """
+    """
+    def __init__(self, start, limit, total, items):
+        #: 数据偏移
+        self.start = start
+        #: 数据个数限制
+        self.limit = limit
+        #: 总共的数据量
+        self.total = total
+        #: 数据元素的列表
+        self.items = items
+
+    @staticmethod
+    def empty():
+        return Page(0, 0, 0, [])
+
+    def __str__(self):
+        return str(self.__dict__)
+
+    def __repr__(self):
+        return str(self.__dict__)
 
 
 def merge(lft, rgt):
@@ -40,5 +64,3 @@ class EnumDocStatus(base.BaseEnum):
     WAIT = "WAIT"
     SUCCESS = "SUCCESS"
     FAILED = "FAILED"
-
-
