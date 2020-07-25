@@ -1,26 +1,32 @@
 # -*- coding:utf-8 -*-
 
-# from webapp.protocol import debug
+import copy
+
+from webapp.protocol import base, debug, storage, user
 
 
-class BaseProto(object):
-    def __init__(self):
-        pass
+def merge(lft, rgt):
+    if lft and not rgt:
+        return copy.deepcopy(lft)
+
+    if rgt and not lft:
+        return copy.deepcopy(rgt)
+
+    if type(lft) is not type(rgt):
+        raise TypeError("left(%s) is not right(%s)" % (type(lft), type(rgt)))
+
+    target_proto = copy.deepcopy(lft)
+    for k, v in rgt.__dict__.items():
+        if isinstance(v, base.BaseProto):
+            res = merge(target_proto.get(k), v)
+        else:
+            res = v
+        target_proto.__dict__[k] = res
+
+    return target_proto
 
 
-class BaseEnum(object):
-    @classmethod
-    def valid(cls, value):
-        ignore_keys = {"__module__", "__doc__"}
-        for k, v in cls.__dict__.items():
-            if k in ignore_keys:
-                continue
-            if v == value:
-                return True
-        return False
-
-
-class EnumUserCred(BaseEnum):
+class EnumUserCred(base.BaseEnum):
     """身份类型
     """
     ADMIN = "ADMIN"
@@ -28,9 +34,11 @@ class EnumUserCred(BaseEnum):
     GUEST = "GUEST"
 
 
-class EnumDocStatus(BaseEnum):
+class EnumDocStatus(base.BaseEnum):
     """文档状态
     """
     WAIT = "WAIT"
     SUCCESS = "SUCCESS"
     FAILED = "FAILED"
+
+

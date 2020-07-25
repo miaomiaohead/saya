@@ -1,16 +1,10 @@
 # -*- coding:utf-8 -*-
 
-from webapp import protocol
-from webapp.baselib.req import Field
+from webapp.protocol import base
+from webapp.baselib.receiver import Field
 
 
-class TestQueryRequest(protocol.BaseProto):
-    uid = Field(int)
-    name = Field(str, default=None)
-    age = Field(int, default=18)
-
-
-class TestBodyRequest(protocol.BaseProto):
+class TestReqRequest(base.BaseProto):
     uid = Field(int)
     name = Field(str, default=None)
     age = Field(int, default=18)

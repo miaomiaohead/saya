@@ -5,7 +5,7 @@ from concurrent import futures
 from sanic import Sanic
 
 from webapp import background, hook
-from webapp.module import debug, user
+from webapp.module import debug, user, storage
 from webapp.baselib import session, thread_executor
 
 from tools import kodo, statistic_helper
@@ -34,6 +34,7 @@ def create_app(config):
     # register route
     app.blueprint(debug.blue_print, url_prefix='/webapi/debug')
     app.blueprint(user.blue_print, url_prefix='/webapi/user')
+    app.blueprint(storage.blue_print, url_prefix='/webapi/storage')
 
     # register hook
     hook.register(app)

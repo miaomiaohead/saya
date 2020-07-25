@@ -5,14 +5,14 @@ from sanic.response import redirect
 
 from webapp import result, exception, protocol
 from webapp.protocol.user import LoginAsRequest
-from webapp.baselib import req, session_helper
+from webapp.baselib import receiver, session_helper
 from webapp.service import user_service
 
 
 blue_print = Blueprint("user", __name__)
 
 
-@blue_print.route("/github_login", methods=['GET', 'POST'])
+@blue_print.route("/github_login")
 async def github_login(request):
     params = ["client_id=%s" % "c0073c9a09d97651fc25",
               "redirect_uri=%s" % "http://saya.signalping.com/webapi/user/github_login_callback",
@@ -24,10 +24,14 @@ async def github_login(request):
     return redirect(login_url)
 
 
-@blue_print.route("/login_as", methods=['GET', 'POST'])
-@req.param(query_proto_class=LoginAsRequest)
+@blue_print.route("/login_as", methods=["GET", "POST"])
+@receiver.param(query_proto_class=LoginAsRequest,
+                body_proto_class=LoginAsRequest)
 async def login_as(request):
-    uid = request.ctx.query_proto.uid
+    proto = protocol.merge(request.ctx.query_proto,
+                           request.ctx.body_proto)
+
+    uid = proto.uid
 
     user_meta = await user_service.query_user_meta(request, uid)
     if not user_meta:
@@ -36,8 +40,8 @@ async def login_as(request):
     return result.Result.simple()
 
 
-@blue_print.route("/", methods=['GET', 'POST'])
-@blue_print.route("/profile", methods=['GET', 'POST'])
+@blue_print.route("/")
+@blue_print.route("/profile")
 async def login_as(request):
     user_meta = await user_service.query_user_meta(request, session_helper.get_uid(request))
 

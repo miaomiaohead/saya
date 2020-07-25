@@ -62,19 +62,13 @@ def parse_proto(request, query_proto_class, body_proto_class):
         args = dict((k, v[0] if len(v) == 1 else v) for k, v in request.args.items())
         query_proto = dict_to_proto(query_proto_class, args)
 
-    if body_proto_class and "application/json" in content_type:
+    if body_proto_class and "application/json" in content_type and request.json:
         body_proto = dict_to_proto(body_proto_class, request.json)
 
-    if body_proto_class and content_type == "application/x-www-form-urlencoded":
+    if body_proto_class and content_type == "application/x-www-form-urlencoded" and request.form:
         # {"k1":["v1"], "k2": ["v2", "v3"]} ---> {"k1":"v1", "k2": ["v2", "v3"]}
         form = dict((k, v[0] if len(v) == 1 else v) for k, v in request.form.items())
         body_proto = dict_to_proto(body_proto_class, form)
-
-    if query_proto_class:
-        assert query_proto
-
-    if body_proto_class:
-        assert body_proto
 
     return query_proto, body_proto
 

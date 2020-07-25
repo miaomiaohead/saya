@@ -3,9 +3,8 @@
 from sanic import Blueprint
 from sanic.response import text, json
 
-from webapp import result
-from webapp.baselib import req
-from webapp.protocol import debug
+from webapp import result, protocol
+from webapp.baselib import receiver
 
 
 blue_print = Blueprint("debug", __name__)
@@ -51,12 +50,14 @@ async def health(request):
 
 
 @blue_print.route("/test_req", methods=["GET", "POST"])
-@req.param(query_proto_class=debug.TestQueryRequest,
-           body_proto_class=debug.TestBodyRequest)
+@receiver.param(query_proto_class=protocol.debug.TestReqRequest,
+                body_proto_class=protocol.debug.TestReqRequest)
 async def test_req(request):
+    merge_proto = protocol.merge(request.ctx.query_proto, request.ctx.body_proto)
     resp = {
-        "query": request.ctx.query_proto.__dict__,
-        "body": request.ctx.body_proto.__dict__,
+        "query": request.ctx.query_proto.__dict__ if request.ctx.query_proto else None,
+        "body": request.ctx.body_proto.__dict__ if request.ctx.body_proto else None,
+        "merge": merge_proto.__dict__,
     }
     return result.Result.simple(obj=resp)
 
