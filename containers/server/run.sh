@@ -14,7 +14,7 @@ statistics_path=`readlink -f ${5}`
 port=$6
 runc_port=$7
 
-if [ $env != "test" ] && [ $env !=  "formal" ] ; then
+if [ $env != "test" ] && [ $env !=  "prod" ] ; then
     echo "env '${env}' not support"
     exit 1
 fi
