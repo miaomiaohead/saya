@@ -36,4 +36,4 @@ docker run -d -p ${port}:${runc_port} \
     --name ${name} \
     --env SERVER_ENV=${env} \
     ${image} \
-    python entry.py --workers 8 --port ${runc_port}
+    python entry.py --env ${env} --workers 8 --port ${runc_port}
