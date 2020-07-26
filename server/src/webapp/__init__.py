@@ -39,6 +39,12 @@ def create_app(config):
     # init log config
     log_config = log.LOGGING_CONFIG_DEFAULTS
     log_config["formatters"]["generic"]["format"] = config.LOGGER_FORMAT
+
+    # create app
+    app = Sanic(__name__, log_config=log_config)
+    app.config.from_object(config)
+
+    # init log
     error_log_file = config.LOGGER_FILE + ".ERROR"
     logger.setLevel(config.LOGGER_LEVEL)
     log_handler = create_time_rotating_log_handler(config.LOGGER_FILE,
@@ -55,10 +61,6 @@ def create_app(config):
                                                          config.LOGGER_FORMAT, )
     logger.addHandler(log_handler)
     logger.addHandler(error_log_handler)
-
-    # create app
-    app = Sanic(__name__, log_config=log_config)
-    app.config.from_object(config)
 
     # init session config
     app.session_config = session.SessionConfig(app.config.SECRET_KEY)
