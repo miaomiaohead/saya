@@ -9,7 +9,7 @@ $ virtualenv --no-site-packages venv
 $ source venv/bin/activate
 
 # 安装依赖项
-(venv)$ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+(venv)$ pip install -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
 
 # 退出虚拟环境
 (venv)$ deactivate

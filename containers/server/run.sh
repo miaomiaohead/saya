@@ -36,4 +36,4 @@ docker run -d -p ${port}:${runc_port} \
     --name ${name} \
     --env SERVER_ENV=${env} \
     ${image} \
-    gunicorn --worker-class gevent --keep-alive 30 --workers 12 --bind 0.0.0.0:${runc_port} entry:app
+    python entry.py --workers 8 --port ${runc_port}
