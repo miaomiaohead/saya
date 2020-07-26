@@ -4,7 +4,6 @@ from sanic import Blueprint
 from sanic.response import redirect
 
 from webapp import result, exception, protocol
-from webapp.protocol.user import LoginAsRequest
 from webapp.baselib import receiver, session_helper
 from webapp.service import user_service
 
@@ -14,8 +13,8 @@ blue_print = Blueprint("user", __name__)
 
 @blue_print.route("/github_login")
 async def github_login(request):
-    params = ["client_id=%s" % "c0073c9a09d97651fc25",
-              "redirect_uri=%s" % "http://saya.signalping.com/webapi/user/github_login_callback",
+    params = ["client_id=%s" % request.app.config.GITHUB_CLIENT_ID,
+              "redirect_uri=%s" % request.app.config.GITHUB_REDIRECT_URI,
               "login"]
     link_params = "&".join(params)
 
@@ -25,8 +24,8 @@ async def github_login(request):
 
 
 @blue_print.route("/login_as", methods=["GET", "POST"])
-@receiver.param(query_proto_class=LoginAsRequest,
-                body_proto_class=LoginAsRequest)
+@receiver.param(query_proto_class=protocol.user.LoginAsRequest,
+                body_proto_class=protocol.user.LoginAsRequest)
 async def login_as(request):
     proto = protocol.merge(request.ctx.query_proto,
                            request.ctx.body_proto)
@@ -52,3 +51,37 @@ async def login_as(request):
         }
 
     return result.Result.simple(obj=user_meta)
+
+
+@blue_print.route("/github_login_callback")
+@receiver.param(query_proto_class=protocol.user.GithubLoginCallbackRequest)
+async def github_login_callback(request):
+    """
+    GitHub OAuth2.0 Authorize Redirect
+    """
+    code = request.ctx.query_proto.code
+    state = request.ctx.query_proto.state
+
+    github_user = await user_service.query_github_user(request, code, state)
+    if not github_user:
+        raise exception.AppGitHubRequestError()
+
+    user_meta = await user_service.query_user_meta_by_github_id(request, github_user["id"])
+    if not user_meta:
+        await user_service.insert_user_from_github(request, github_user)
+    else:
+        session_helper.save_uid(request, user_meta["uid"])
+
+    login_redirect_uri = session_helper.get_login_redirect_uri(request)
+
+    if not login_redirect_uri:
+        return redirect("http://saya.signalping.com/webapi/user/profile")
+
+    return redirect(login_redirect_uri)
+
+
+@blue_print.route("/logout")
+async def logout(request):
+    """退出登录
+    """
+    return result.Result.simple()

@@ -15,7 +15,7 @@ class BaseConfig(object):
 
     # 日志配置
     LOGGER_LEVEL = logging.INFO
-    LOGGER_FORMAT = "[%(levelname)s] [%(asctime)s]%(message)s"
+    LOGGER_FORMAT = "[%(levelname)s] %(asctime)s [%(pathname)s:%(funcName)s:%(lineno)d] %(message)s"
     LOGGER_FILE = "../logs/saya.log"
     LOGGER_WHEN = "D"
     LOGGER_INTERVAL = 1

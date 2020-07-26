@@ -6,7 +6,7 @@ import uuid
 from sanic.log import logger
 
 from webapp import db, exception, result
-from webapp.baselib import session, watcher
+from webapp.baselib import session, watcher, http_clients
 
 
 def load_session_from_request(request):
@@ -25,6 +25,11 @@ def register(app):
     async def setup_component(local_app, loop):
         # 初始化 db
         app.db_pool = await db.create_db_pool(local_app, loop)
+
+        # register http client
+        app.http_clients = http_clients.HttpClients(loop)
+        app.http_clients.add_client("github.com")
+        app.http_clients.add_client("api.github.com")
 
     @app.middleware('request')
     async def before_request(request):
