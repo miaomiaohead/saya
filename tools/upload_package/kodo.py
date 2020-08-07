@@ -70,6 +70,7 @@ class KodoClient(object):
             message = ""
             if r.status_code != 200:
                 message = r.text
+            print(r.text)
             return success, message
 
     def upload_rb(self, local, path=None):

@@ -12,7 +12,12 @@ blue_print = Blueprint("user", __name__)
 
 
 @blue_print.route("/github_login")
+@receiver.param(query_proto_class=protocol.user.GithubLoginRequest)
 async def github_login(request):
+    redirect_uri = request.ctx.query_proto.redirect_uri
+    if redirect_uri:
+        session_helper.save_login_redirect_uri(request, redirect_uri)
+
     params = ["client_id=%s" % request.app.config.GITHUB_CLIENT_ID,
               "redirect_uri=%s" % request.app.config.GITHUB_REDIRECT_URI,
               "login"]

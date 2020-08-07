@@ -45,6 +45,18 @@ class Session(object):
     def exists(self, k):
         return k in self._local
 
+    def __getitem__(self, key):
+        return self._local[key]
+
+    def __setitem__(self, key, value):
+        self._local[key] = value
+
+    def __contains__(self, key):
+        return key in self._local
+
+    def __len__(self):
+        return len(self._local)
+
     def load_request_cookie(self, request):
         session_config = self._session_config
         session_name = session_config.session_name

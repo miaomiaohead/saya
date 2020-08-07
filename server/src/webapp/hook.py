@@ -39,7 +39,7 @@ def register(app):
         load_session_from_request(request)
 
         if not request.ctx.session.get("_uid"):
-            request.ctx.session.set("_uid", str(uuid.uuid4()))
+            request.ctx.session["_uid"] = str(uuid.uuid4())
 
         logger.info("url : %s, methods : %s, request body : %s"
                     % (request.url, request.method, str(request.body)))

@@ -5,7 +5,7 @@ import kodo
 
 LOCAL_FILE = "saya.zip"
 UPLOAD_PREFIX = "user/aa0abdd5-4d5a-460d-b3ca-8a70e27469d7/"
-UPLOAD_FILE = "asfasdcds.zip"
+UPLOAD_FILE = "123.zip"
 
 QINIU_PUBLIC_STORE_REGION = "https://upload-z1.qiniup.com"
 QINIU_ACCESS_KEY = "sRd2-QgwgZnPgZyY1E6oS0QxtFWjGLNJwss9D2Op"

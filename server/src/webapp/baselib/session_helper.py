@@ -10,7 +10,7 @@ def get_uid(request):
 
 
 def save_uid(request, uid):
-    request.ctx.session.set("_uid", uid)
+    request.ctx.session["_uid"] = uid
 
 
 def get_login_redirect_uri(request):
@@ -18,7 +18,7 @@ def get_login_redirect_uri(request):
 
 
 def save_login_redirect_uri(request, redirect_uri):
-    request.ctx.session.set("_login_redirect_uri", redirect_uri)
+    request.ctx.session["_login_redirect_uri"] = redirect_uri
 
 
 def remove_login_redirect_uri(request):
