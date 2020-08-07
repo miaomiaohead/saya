@@ -26,10 +26,6 @@ class Session(object):
         self._changed = False
         self._local = {}
 
-    def set(self, k, v):
-        self._changed = True
-        self._local[k] = v
-
     def get(self, k, default=None):
         return self._local.get(k, default)
 
@@ -49,6 +45,7 @@ class Session(object):
         return self._local[key]
 
     def __setitem__(self, key, value):
+        self._changed = True
         self._local[key] = value
 
     def __contains__(self, key):

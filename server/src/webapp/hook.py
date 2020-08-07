@@ -59,7 +59,7 @@ def register(app):
                       % (request.url, request.method, delayed, response.status, str(response.body))
 
             logger_print = logger.info
-            if response.status != 200 or request_failed:
+            if request_failed:
                 logger_print = logger.error
 
             if response.status != 404:
