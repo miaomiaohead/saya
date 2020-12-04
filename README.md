@@ -14,3 +14,27 @@ $ source venv/bin/activate
 # 退出虚拟环境
 (venv)$ deactivate
 ```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=utf-8
+
+{
+    "result": {
+        "error_code": 2230001,
+        "error_message": "empty request."
+    }
+}
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=utf-8
+
+{
+    "result": {
+        "error_code": 2230001,
+        "error_message": "empty request."
+    }
+}
+```
