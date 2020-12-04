@@ -15,6 +15,11 @@ $ source venv/bin/activate
 (venv)$ deactivate
 ```
 
+字段|类型|必填|描述
+-|-|:-:|-
+Authorization|string|Y|Web API 访问令牌，格式为 `bearer ACCESS_TOKEN`，[access_token]() 的获取请参考请求访问令牌。
+Content-Type|string|Y|固定为 `application/json;charset=utf-8`。
+
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=utf-8
